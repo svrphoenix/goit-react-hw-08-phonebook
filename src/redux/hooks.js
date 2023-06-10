@@ -3,7 +3,13 @@ import {
   selectContacts,
   selectFilter,
   selectVisibleContacts,
-} from './selectors';
+} from './contacts/selectors';
+
+import {
+  selectUser,
+  selectIsLoggedIn,
+  selectIsRefreshing,
+} from './auth/selectors';
 
 const useVisibleContacts = () => {
   return useSelector(selectVisibleContacts);
@@ -17,4 +23,16 @@ const useFilter = () => {
   return useSelector(selectFilter);
 };
 
-export { useVisibleContacts, useContacts, useFilter };
+const useAuth = () => {
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isRefreshing = useSelector(selectIsRefreshing);
+  const user = useSelector(selectUser);
+
+  return {
+    isLoggedIn,
+    isRefreshing,
+    user,
+  };
+};
+
+export { useVisibleContacts, useContacts, useFilter, useAuth };

@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 
-export const List = styled.ul`
-  margin-top: 1rem;
+export const Contacts = styled.ul`
+  margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
+  text-align: left;
 `;
 
 export const Contact = styled.li`
@@ -13,12 +14,3 @@ export const Contact = styled.li`
   align-items: center;
 `;
 
-export const Button = styled.button`
-  cursor: pointer;
-  :hover,
-  :focus {
-    color: rgb(255, 255, 255);
-    background-color: rgb(255, 0, 0);
-    border-color: rgb(255, 255, 255);
-  }
-`;

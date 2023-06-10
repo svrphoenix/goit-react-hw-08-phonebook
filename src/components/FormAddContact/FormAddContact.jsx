@@ -1,18 +1,19 @@
 import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-hot-toast';
-// import { addContact } from 'redux/contactsSlice';
+import { Button } from '@mui/material';
+
 import { FormTitle } from './FormAddContact.styled';
 import {
   StyledForm,
   FormContainer,
   Input,
   ErrMessage,
-  Button,
 } from './FormAddContact.styled';
+
 import { useContacts } from 'redux/hooks';
 import { ContactSchema } from './validation';
-import { addContact } from 'redux/operations';
+import { addContact } from 'redux/contacts/operations';
 
 export const FormAddContact = () => {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ export const FormAddContact = () => {
         <FormContainer>
           <div>
             <label>
-              Name
+              Contact name
               <Input type="text" name="name" required />
               <ErrMessage name="name" component="p" />
             </label>
@@ -71,7 +72,9 @@ export const FormAddContact = () => {
               <ErrMessage name="number" component="p" />
             </label>
           </div>
-          <Button type="submit">Add contact</Button>
+          <Button variant="contained" type="submit">
+            Add contact
+          </Button>
         </FormContainer>
       </StyledForm>
     </Formik>

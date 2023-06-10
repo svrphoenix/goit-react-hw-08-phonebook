@@ -2,24 +2,21 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-hot-toast';
 
-axios.defaults.baseURL = 'https://646f943e09ff19b1208781fe.mockapi.io';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
-export const fetchContacts = createAsyncThunk(
+const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get('/contacts');
       return data;
     } catch (err) {
-      toast.error(
-        `Error happend on the server while loading contacts: (${err.message})`
-      );
       return rejectWithValue(err.code);
     }
   }
 );
 
-export const addContact = createAsyncThunk(
+const addContact = createAsyncThunk(
   'contacts/addContact',
   async (contact, { rejectWithValue }) => {
     try {
@@ -34,7 +31,7 @@ export const addContact = createAsyncThunk(
   }
 );
 
-export const deleteContact = createAsyncThunk(
+const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (id, { rejectWithValue }) => {
     try {
@@ -48,3 +45,5 @@ export const deleteContact = createAsyncThunk(
     }
   }
 );
+
+export { deleteContact, addContact, fetchContacts };

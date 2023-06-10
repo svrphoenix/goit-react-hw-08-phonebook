@@ -1,25 +1,27 @@
 import { useDispatch } from 'react-redux';
-import { filterContacts } from 'redux/filterSlice';
+import { TextField } from '@mui/material';
 
-import { Input } from './Filter.styled';
-import { useContacts, useFilter } from 'redux/hooks';
+import { filterContacts } from 'redux/contacts/filterSlice';
+import { useFilter, useVisibleContacts } from 'redux/hooks';
 
 export const Filter = () => {
   const dispatch = useDispatch();
   const filter = useFilter();
-  const isInputDisabled = useContacts().length ? false : true;
+
+  const isInputDisabled = useVisibleContacts() ? false : true;
 
   return (
-    <label>
-      Find contact by name:
-      <Input
-        type="text"
-        value={filter}
-        disabled={isInputDisabled}
-        onChange={({ currentTarget: { value } }) => {
-          dispatch(filterContacts(value));
-        }}
-      />
-    </label>
+    <TextField
+      variant="standard"
+      label="Enter name to filter..."
+      type="text"
+      size="small"
+      sx={{ mt: 1, mb: 1 }}
+      value={filter}
+      disabled={isInputDisabled}
+      onChange={({ currentTarget: { value } }) => {
+        dispatch(filterContacts(value));
+      }}
+    />
   );
 };

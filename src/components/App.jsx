@@ -1,49 +1,58 @@
-import { Toaster } from 'react-hot-toast';
-import { GlobalStyles } from './GlobalStyle';
-import { Global } from '@emotion/react';
-import { Layout } from './Layout/Layout';
-import { FormAddContact } from './FormAddContact/FormAddContact';
-import { Title } from './Title/Title';
-import { ContactList } from './ContactList/ContactList';
-import { Filter } from './Filter/Filter';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchContacts } from 'redux/operations';
-import { selectError, selectIsLoading } from 'redux/selectors';
-import { Grid } from 'react-loader-spinner';
+import { Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useEffect, lazy } from 'react';
+
+import { useAuth } from 'redux/hooks';
+import { refreshCurrentUser } from 'redux/auth/operations';
+
+import SharedLayout from './SharedLayout/SharedLayout';
+import { PrivateRoute } from './PrivateRoute';
+import { RestrictedRoute } from './RestrictedRoute';
+
+const RegisterPage = lazy(() => import('pages/Register'));
+const LoginPage = lazy(() => import('pages/Login'));
+const ContactsPage = lazy(() => import('pages/ContactsPage'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshCurrentUser());
   }, [dispatch]);
-
-  return (
-    <main>
-      <Layout>
-        <h1>Phonebook</h1>
-        <FormAddContact />
-        <Title title="Contacts" />
-        <Filter />
-        {isLoading && !error && (
-          <Grid
-            height="40"
-            width="40"
-            color="rgba(178, 182, 181, 0.904)"
-            ariaLabel="grid-loading"
-            radius="8"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-          />
-        )}
-        <ContactList />
-      </Layout>
-      <Toaster position="top-right" reverseOrder={false} />
-      <Global styles={GlobalStyles} />
-    </main>
+  return isRefreshing ? (
+    <b>Refreshing current user...</b>
+  ) : (
+    <Routes>
+      <Route path="/" element={<SharedLayout />}>
+        <Route
+          index
+          element={
+            <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <RestrictedRoute
+              redirectTo="/contacts"
+              component={<RegisterPage />}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
+          }
+        />
+      </Route>
+    </Routes>
   );
 };

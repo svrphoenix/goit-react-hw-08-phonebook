@@ -5,6 +5,9 @@ export const StyledForm = styled(Form)`
   padding: 1rem;
   width: 30rem;
   border: 1px solid black;
+  border-radius: 5px;
+  margin: 0 auto;
+  text-align: left;
 `;
 
 export const FormContainer = styled.div`
@@ -28,6 +31,8 @@ export const Button = styled.button`
 
 export const Input = styled(Field)`
   display: block;
+  padding: 0.5rem;
+  width: 20rem;
 `;
 
 export const ErrMessage = styled(ErrorMessage)`

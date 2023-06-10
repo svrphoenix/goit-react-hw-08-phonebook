@@ -1,5 +1,9 @@
-import styled from '@emotion/styled';
+// import styled from '@emotion/styled';
+// import { Typography } from '@mui/material';
 
-export const StyledTitle = styled.h2`
-  margin: 1rem 0;
-`;
+// export const StyledTitle = styled(Typography)`
+//   margin-top: 1rem;
+//   display: flex;
+//   justify-content: center;
+//   flex-grow: 1;
+// `;
