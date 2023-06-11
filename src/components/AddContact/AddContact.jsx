@@ -32,6 +32,6 @@ export const AddContact = () => {
   };
 
   return (
-    <FormikForm title=' Add contact' handleSubmit={handleSubmit}/>
+    <FormikForm title='Add contact' handleSubmit={handleSubmit}/>
   );
 };

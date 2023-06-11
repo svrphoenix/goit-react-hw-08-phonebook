@@ -33,7 +33,6 @@ export const EditContact = ({ contact, handleClose }) => {
       );
       return;
     }
-    console.log(contactId, values);
     dispatch(updateContact({ ...values, id: contactId }));
     handleClose();
   };

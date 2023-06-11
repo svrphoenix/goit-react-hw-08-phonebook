@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-hot-toast';
 import { CircularProgress, Typography } from '@mui/material';
 
-import { addContact, fetchContacts } from 'redux/contacts/operations';
+import { fetchContacts } from 'redux/contacts/operations';
 import { selectError, selectIsLoading } from 'redux/contacts/selectors';
 import { useAuth } from 'redux/hooks';
 
@@ -31,7 +31,7 @@ function ContactsPage() {
           <Typography variant="h3" component="h1" color="primary.main">
             {`Contacts of user "${user.name}"`}
           </Typography>
-          <AddContact title="Add contact" operation={addContact} />
+          <AddContact title="Add contact" />
 
           <Typography
             variant="h5"
