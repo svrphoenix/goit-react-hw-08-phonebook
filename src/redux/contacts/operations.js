@@ -46,4 +46,19 @@ const deleteContact = createAsyncThunk(
   }
 );
 
-export { deleteContact, addContact, fetchContacts };
+const updateContact = createAsyncThunk(
+  'contacts/updateContact',
+  async ({ id, name, number }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.patch(`/contacts/${id}`, { name, number });
+      return data;
+    } catch (err) {
+      toast.error(
+        `Error happend on the server while updating contacts: (${err.message})`
+      );
+      return rejectWithValue(err.code);
+    }
+  }
+);
+
+export { deleteContact, addContact, fetchContacts, updateContact };

@@ -7,11 +7,12 @@ export const StyledForm = styled(Form)`
   border: 1px solid black;
   border-radius: 5px;
   margin: 0 auto;
-  text-align: left;
+  text-align: center;
 `;
 
 export const FormContainer = styled.div`
   display: flex;
+  align-items: center;
   flex-direction: column;
   gap: 1rem;
 `;

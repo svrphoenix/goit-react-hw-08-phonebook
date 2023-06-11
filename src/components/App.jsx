@@ -8,6 +8,7 @@ import { refreshCurrentUser } from 'redux/auth/operations';
 import SharedLayout from './SharedLayout/SharedLayout';
 import { PrivateRoute } from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
+import { LinearProgress } from '@mui/material';
 
 const RegisterPage = lazy(() => import('pages/Register'));
 const LoginPage = lazy(() => import('pages/Login'));
@@ -21,7 +22,12 @@ export const App = () => {
     dispatch(refreshCurrentUser());
   }, [dispatch]);
   return isRefreshing ? (
-    <b>Refreshing current user...</b>
+    <>
+      <b>Refreshing current user...</b>
+      <div>
+        <LinearProgress />
+      </div>
+    </>
   ) : (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
